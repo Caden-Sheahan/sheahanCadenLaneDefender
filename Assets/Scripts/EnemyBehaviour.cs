@@ -27,4 +27,28 @@ public class EnemyBehaviour : MonoBehaviour
     {
 
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("bullet"))
+        {
+            // reference animator and start death anim.
+        }
+        if (collision.gameObject.CompareTag("player"))
+        {
+            // player loses a life
+            EnemyDeath();
+
+        }
+        if (collision.gameObject.CompareTag("border"))
+        {
+            // player loses a life
+            EnemyDeath();
+        }
+    }
+
+    public void EnemyDeath()
+    {
+        Destroy(gameObject);
+    }
 }

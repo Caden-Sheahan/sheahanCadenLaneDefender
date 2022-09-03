@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3144287385047662006}
   - component: {fileID: 1605739467356657640}
+  - component: {fileID: 2436655754393612649}
   - component: {fileID: 8352089241223155608}
   m_Layer: 0
   m_Name: 8thNote
@@ -85,6 +86,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2436655754393612649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9104931205698322351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4dc34f93c03c0c4eaf32996d435186c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &8352089241223155608
 Animator:
   serializedVersion: 4

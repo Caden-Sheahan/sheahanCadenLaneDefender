@@ -17,4 +17,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         //pc.
     }
+
+    private void PlayerMove()
+    {
+
+    }
 }
