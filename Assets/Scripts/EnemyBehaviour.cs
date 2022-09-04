@@ -13,7 +13,6 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [Header("Spawning")]
     public GameObject[] spawnPoints = new GameObject[5]; 
 
     // Start is called before the first frame update
@@ -38,7 +37,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             // player loses a life
             EnemyDeath();
-
         }
         if (collision.gameObject.CompareTag("border"))
         {

@@ -6,10 +6,18 @@ using UnityEngine.InputSystem;
 public class PlayerBehaviour : MonoBehaviour
 {
     public PlayerControls pc;
+    public Animator anim;
 
+    [Header("Movement")]
     private Vector2 moveInput;
-
     public int moveSpeed;
+
+    [Header("Attacking")]
+    private bool canFire = true;
+    public GameObject bullet;
+    [Range(0, 2)]
+    public float bOffset;
+    public float cooldown;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +27,12 @@ public class PlayerBehaviour : MonoBehaviour
 
         pc.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         pc.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
+
+        pc.Player.Fire.started += ctx => StartCoroutine(FireBullet());
+        //pc.Player.Fire.canceled += ctx =>
+
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -37,5 +51,23 @@ public class PlayerBehaviour : MonoBehaviour
         movement = input * moveSpeed * Time.deltaTime;
         //
         transform.Translate(movement, Space.World);
+    }
+
+    IEnumerator FireBullet()
+    {
+        if(canFire)
+        {
+            Instantiate(bullet, new Vector3(transform.position.x + bOffset,
+                transform.position.y, 0f), Quaternion.identity);
+            anim.SetBool("Fire", true);
+            yield return new WaitForSeconds(cooldown);
+        }
+        else if (!canFire)
+        {
+            anim.SetBool("Fire", false);
+            yield return new WaitForSeconds(cooldown);
+            canFire = true;
+            yield break;
+        }
     }
 }

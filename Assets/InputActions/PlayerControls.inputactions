@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "271251fa-b6fb-4c1f-9ca2-e87c7e243b87",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Reset",
                     "type": "Button",
                     "id": "2945b8fa-acfb-42f2-a652-778d776107e3",
@@ -121,6 +130,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "5fcea655-8847-4c27-9cf6-4e55588e86a3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
