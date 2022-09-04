@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
         pc.Enable();
 
         pc.Player.Quit.performed += ctx => Quit();
-        pc.Player.Quit.performed += ctx => Reset();
+        pc.Player.Reset.performed += ctx => Reset();
     }
 
     // Update is called once per frame
@@ -23,8 +23,10 @@ public class GameController : MonoBehaviour
 
     }
 
+    #region Inputs
     private void Reset()
     {
+        Debug.Log("Reset Game!");
         SceneManager.LoadScene(0);
     }
 
@@ -33,4 +35,10 @@ public class GameController : MonoBehaviour
         Application.Quit();
         Debug.Log("Quit!");
     }
+
+    private void OnDisable()
+    {
+        pc.Disable();
+    }
+    #endregion
 }
