@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,15 +12,25 @@ public class GameController : MonoBehaviour
     {
         pc = new PlayerControls();
         pc.Enable();
+
+        pc.Player.Quit.performed += ctx => Quit();
+        pc.Player.Quit.performed += ctx => Reset();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameDebugging();
-    }
-    private void GameDebugging()
-    {
 
+    }
+
+    private void Reset()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void Quit()
+    {
+        Application.Quit();
+        Debug.Log("Quit!");
     }
 }
