@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public PlayerControls pc;
-    public Animator anim;
+    PlayerControls pc;
+    Animator anim;
 
     [Header("Movement")]
     private Vector2 moveInput;
@@ -61,13 +61,6 @@ public class PlayerBehaviour : MonoBehaviour
                 transform.position.y, 0f), Quaternion.identity);
             anim.SetBool("Fire", true);
             yield return new WaitForSeconds(cooldown);
-        }
-        else if (!canFire)
-        {
-            anim.SetBool("Fire", false);
-            yield return new WaitForSeconds(cooldown);
-            canFire = true;
-            yield break;
         }
     }
 }

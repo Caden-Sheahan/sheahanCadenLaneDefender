@@ -3,10 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public PlayerControls pc;
+
+    [Header("HUD")]
+    public static int pLives = 3;
+    public TMPro.TMP_Text livesText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +26,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        livesText.text = "Lives: " + pLives.ToString();
     }
 
     #region Inputs

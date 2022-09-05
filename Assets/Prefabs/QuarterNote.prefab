@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1875860735623364294}
   - component: {fileID: 4747119918972846253}
   - component: {fileID: 6451496611178269974}
+  - component: {fileID: 5440815863229719529}
   m_Layer: 0
   m_Name: QuarterNote
   m_TagString: enemy
@@ -105,6 +106,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  eType: 1
+  eHP: 3
+  eSpeed: 2
 --- !u!95 &4747119918972846253
 Animator:
   serializedVersion: 4
@@ -141,3 +145,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.9}
   serializedVersion: 2
   m_Radius: 0.4
+--- !u!50 &5440815863229719529
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747119918972846224}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
