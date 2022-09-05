@@ -15,8 +15,8 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Attacking")]
     private bool canFire = true;
     public GameObject bullet;
-    [Range(0, 2)]
     public float bOffset;
+    [Range(0, 2)]
     public float cooldown;
 
     // Start is called before the first frame update
@@ -55,12 +55,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     IEnumerator FireBullet()
     {
-        if(canFire)
+        if (canFire)
         {
+            canFire = false;
             Instantiate(bullet, new Vector3(transform.position.x + bOffset,
                 transform.position.y, 0f), Quaternion.identity);
             anim.SetBool("Fire", true);
-            yield return new WaitForSeconds(cooldown);
         }
+        yield return new WaitForSeconds(cooldown);
     }
 }

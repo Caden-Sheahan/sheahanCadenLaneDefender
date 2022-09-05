@@ -25,8 +25,6 @@ public class EnemyBehaviour : MonoBehaviour
     public float eSpeed;
     private Vector2 eMove;
     private bool eActive = true;
-    [Range(0, 2)]
-    public int eStun;
 
     // Start is called before the first frame update
     void Start()

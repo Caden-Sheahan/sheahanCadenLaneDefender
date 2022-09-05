@@ -18,9 +18,13 @@ public class GameController : MonoBehaviour
     
     public TMPro.TMP_Text hsText;
 
+    public GameObject gOT;
+
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
+
         pc = new PlayerControls();
         pc.Enable();
 
@@ -34,6 +38,7 @@ public class GameController : MonoBehaviour
         lText.text = "Lives: " + pLives.ToString();
         sText.text = "Score: " + pScore.ToString();
         HighScore(pScore);
+        GameOver();
     }
 
     #region Inputs
@@ -70,6 +75,15 @@ public class GameController : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", score);
         }
         hsText.text = "High Score: " + PlayerPrefs.GetInt("HighScore").ToString();
+    }
+
+    private void GameOver()
+    {
+        if (pLives == 0)
+        {
+            Time.timeScale = 0;
+            gOT.SetActive(true);
+        }
     }
 
 }
