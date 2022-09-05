@@ -14,6 +14,9 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     Animator anim;
+    Rigidbody2D rb;
+    Collider2D col;
+    GameController gc;
 
     public GameObject[] spawnPoints = new GameObject[5];
     public int eType;
@@ -29,6 +32,9 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
+        gc = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
@@ -42,26 +48,29 @@ public class EnemyBehaviour : MonoBehaviour
         {
             eMove = Vector2.zero;
         }
+        rb.velocity = eMove;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("bullet"))
         {
-            // reference animator and start death anim.
-            // award points
             eHP--;
-            print(eHP);
             if (eHP == 0)
             {
+                eActive = false;
+                col.enabled = false;
                 switch (eType)
                 {
                     case 0:
+                        gc.pScore += 100;
                         anim.SetTrigger("8thDied");
                         break;
                     case 1:
+                        gc.pScore += 300;
                         anim.SetTrigger("QuarterDied");
                         break;
                     case 2:
+                        gc.pScore += 500;
                         anim.SetTrigger("HalfDied");
                         break;
                     default:
@@ -89,24 +98,37 @@ public class EnemyBehaviour : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("player"))
         {
-            GameController.pLives--;
+            gc.pLives--;
             EnemyDeath();
         }
         if (collision.gameObject.CompareTag("border"))
         {
-            // player loses a life
+            gc.pLives--;
             EnemyDeath();
         }
-    }
-
-    IEnumerator EnemyHurt()
-    {
-
-        yield return new WaitForSeconds(eStun);
     }
 
     public void EnemyDeath()
     {
         Destroy(gameObject);
+    }
+
+    public void MoveEnemy()
+    {
+        eActive = true;
+        switch (eType)
+        {
+            case 0:
+                anim.SetBool("8thHurt", false);
+                break;
+            case 1:
+                anim.SetBool("QuarterHurt", false);
+                break;
+            case 2:
+                anim.SetBool("HalfHurt", false);
+                break;
+            default:
+                break;
+        }
     }
 }

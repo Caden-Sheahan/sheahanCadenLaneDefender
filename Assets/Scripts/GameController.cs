@@ -10,8 +10,13 @@ public class GameController : MonoBehaviour
     public PlayerControls pc;
 
     [Header("HUD")]
-    public static int pLives = 3;
-    public TMPro.TMP_Text livesText;
+    public int pLives = 3;
+    public TMPro.TMP_Text lText;
+
+    public int pScore = 0;
+    public TMPro.TMP_Text sText;
+    
+    public TMPro.TMP_Text hsText;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +31,9 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        livesText.text = "Lives: " + pLives.ToString();
+        lText.text = "Lives: " + pLives.ToString();
+        sText.text = "Score: " + pScore.ToString();
+        HighScore(pScore);
     }
 
     #region Inputs
@@ -45,6 +52,24 @@ public class GameController : MonoBehaviour
     private void OnDisable()
     {
         pc.Disable();
+        PlayerPrefs.Save();
     }
     #endregion
+
+    private void HighScore(int score)
+    {
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
+            if(score > PlayerPrefs.GetInt("HighScore"))
+            {
+                PlayerPrefs.SetInt("HighScore", score);
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
+        hsText.text = "High Score: " + PlayerPrefs.GetInt("HighScore").ToString();
+    }
+
 }
