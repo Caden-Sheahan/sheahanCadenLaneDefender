@@ -100,16 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dc34f93c03c0c4eaf32996d435186c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   eType: 2
   eHP: 5
-  eSpeed: 1
-  eStun: 0
+  eSpeed: 0.75
 --- !u!95 &5823553096999522341
 Animator:
   serializedVersion: 4

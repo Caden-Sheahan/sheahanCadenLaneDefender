@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,12 +17,20 @@ public class GameController : MonoBehaviour
     
     public TMPro.TMP_Text hsText;
 
-    public GameObject gOT;
+    public GameObject goUI;
+
+    [Header("Enemies")]
+    public int spawnRate;
+    public GameObject[] enemies = new GameObject[3];
+    public Vector3[] spawnPoints = new Vector3[5] {new Vector3(10, 2, 0),
+        new Vector3(10, 0.75f, 0), new Vector3(10, -0.5f, 0),
+        new Vector3(10, -1.75f, 0), new Vector3(10, -3, 0)};
 
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1;
+        StartCoroutine(SpawnEnemy(spawnRate));
 
         pc = new PlayerControls();
         pc.Enable();
@@ -39,6 +46,18 @@ public class GameController : MonoBehaviour
         sText.text = "Score: " + pScore.ToString();
         HighScore(pScore);
         GameOver();
+    }
+
+    IEnumerator SpawnEnemy(int spawnRate)
+    {
+        while (true)
+        {
+            Instantiate(enemies[Random.Range(0, 3)], spawnPoints[Random.Range(0, 4)],
+                Quaternion.identity);
+            spawnRate = Random.Range(2, 5);
+            print(spawnRate);
+            yield return new WaitForSeconds(spawnRate);
+        }
     }
 
     #region Inputs
@@ -82,8 +101,7 @@ public class GameController : MonoBehaviour
         if (pLives == 0)
         {
             Time.timeScale = 0;
-            gOT.SetActive(true);
+            goUI.SetActive(true);
         }
     }
-
 }

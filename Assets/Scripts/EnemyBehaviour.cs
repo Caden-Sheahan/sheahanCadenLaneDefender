@@ -19,9 +19,13 @@ public class EnemyBehaviour : MonoBehaviour
     Collider2D col;
     GameController gc;
 
-    public GameObject[] spawnPoints = new GameObject[5];
-    public int eType;
+    //public GameObject enemy;
+    //public Vector3[] spawnPoints = new Vector3[5] {new Vector3(10, 2, 0), 
+    //    new Vector3(10, 0.75f, 0), new Vector3(10, -0.5f, 0), 
+    //    new Vector3(10, -1.75f, 0), new Vector3(10, -3, 0)};
+    //public int sRate;
 
+    public int eType;
     public float eHP;
     public float eSpeed;
     private Vector2 eMove;
@@ -29,12 +33,23 @@ public class EnemyBehaviour : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
+
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         gc = FindObjectOfType<GameController>();
     }
+
+    //IEnumerator SpawnEnemy()
+    //{
+    //    while (true)
+    //    {
+    //        Instantiate(enemy, spawnPoints[Random.Range(0, 4)], 
+    //            Quaternion.identity);
+    //        yield return new WaitForSeconds(sRate);
+    //    }
+    //}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -49,6 +64,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         rb.velocity = eMove;
     }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("bullet"))
@@ -107,11 +123,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    public void EnemyDeath()
-    {
-        Destroy(gameObject);
-    }
-
     public void MoveEnemy()
     {
         eActive = true;
@@ -129,5 +140,10 @@ public class EnemyBehaviour : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void EnemyDeath()
+    {
+        Destroy(gameObject);
     }
 }
