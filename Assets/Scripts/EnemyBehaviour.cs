@@ -5,7 +5,8 @@
 //      
 //  Description:    This script controls the enemies the player defeats. How
 //                  they move, how they spawn, and how they are animated when 
-//                  certain events occur.
+//                  certain events occur. Switch statements are used to 
+//                  differentiate between the different types of enemies.
 ******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;

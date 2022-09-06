@@ -39,10 +39,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Fire"",
                     ""type"": ""Button"",
-                    ""id"": ""271251fa-b6fb-4c1f-9ca2-e87c7e243b87"",
+                    ""id"": ""6833edd8-6b53-4781-912e-4d5cf4e6d657"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -155,7 +155,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5fcea655-8847-4c27-9cf6-4e55588e86a3"",
+                    ""id"": ""0007f287-5811-47d4-aee3-9854514ffce7"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",

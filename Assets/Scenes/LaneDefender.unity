@@ -353,6 +353,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  canFire: 0
+  fire: 1
   bullet: {fileID: 5355730785976692576, guid: 378d7ba4ad737fa478bb8e4731c9c8a2, type: 3}
   bOffset: 1.3
   cooldown: 1
@@ -1860,7 +1862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3144287385047662006, guid: f3f705f5f5debad45b410523e10efabb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.7461195
+      value: 8.75
       objectReference: {fileID: 0}
     - target: {fileID: 3144287385047662006, guid: f3f705f5f5debad45b410523e10efabb, type: 3}
       propertyPath: m_LocalPosition.y

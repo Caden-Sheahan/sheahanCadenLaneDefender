@@ -13,7 +13,8 @@ public class PlayerBehaviour : MonoBehaviour
     public int moveSpeed;
 
     [Header("Attacking")]
-    private bool canFire = true;
+    public bool canFire = true;
+    public bool fire = true;
     public GameObject bullet;
     public float bOffset;
     [Range(0, 2)]
@@ -28,9 +29,8 @@ public class PlayerBehaviour : MonoBehaviour
         pc.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         pc.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
 
-        pc.Player.Fire.started += ctx => StartCoroutine(FireBullet());
-        //pc.Player.Fire.canceled += ctx =>
-
+        pc.Player.Fire.performed += ctx => canFire = true;
+        pc.Player.Fire.canceled += ctx => canFire = false;
 
         anim = GetComponent<Animator>();
     }
@@ -39,6 +39,7 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
         PlayerMove(moveInput);
+        FireBullet();           
     }
 
     /// <summary>
@@ -53,15 +54,32 @@ public class PlayerBehaviour : MonoBehaviour
         transform.Translate(movement, Space.World);
     }
 
-    IEnumerator FireBullet()
+    private void FireBullet()
     {
         if (canFire)
         {
-            canFire = false;
-            Instantiate(bullet, new Vector3(transform.position.x + bOffset,
-                transform.position.y, 0f), Quaternion.identity);
-            anim.SetBool("Fire", true);
+            StartCoroutine(FireRate());
+        }    
+    }
+
+    IEnumerator FireRate()
+    {
+        if (pc.Player.Fire.IsPressed())
+        {
+            if (fire)
+            {
+                fire = false;
+                Instantiate(bullet, new Vector3(transform.position.x + bOffset,
+                    transform.position.y, 0f), Quaternion.identity);
+                anim.SetBool("Fire", true);
+                yield return new WaitForSeconds(cooldown);
+                fire = true;
+            }
         }
-        yield return new WaitForSeconds(cooldown);
+    }
+
+    public void ResetIdle()
+    {
+        anim.SetBool("Fire", false);
     }
 }

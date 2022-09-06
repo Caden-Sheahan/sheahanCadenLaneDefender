@@ -1,3 +1,11 @@
+/******************************************************************************  
+//  File Name:      BulletBehaviour     
+//  Author:         Caden Sheahan
+//  Creation Date:  September 4th, 2022
+//      
+//  Description:    This script controls the treble clef bullets operate. Their
+                    movement and the events where they are destroyed.
+******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +25,14 @@ public class BulletBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+    }
+
+    private void Update()
+    {
+        if (transform.position.x > 11)
+        {
+            BulletDestroy();
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
