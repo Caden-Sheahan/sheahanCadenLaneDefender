@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eType: 2
-  eHP: 5
+  eHP: 4
   eSpeed: 0.75
 --- !u!95 &5823553096999522341
 Animator:

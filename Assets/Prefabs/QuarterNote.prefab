@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eType: 1
-  eHP: 3
-  eSpeed: 1.75
+  eHP: 2
+  eSpeed: 1.5
 --- !u!95 &4747119918972846253
 Animator:
   serializedVersion: 4

@@ -1,5 +1,5 @@
 /******************************************************************************  
-//  File Name:      EnemyBehaviour     
+//  File Name:      EnemyBehaviour.cs     
 //  Author:         Caden Sheahan
 //  Creation Date:  August 25th, 2022
 //      
@@ -7,6 +7,7 @@
 //                  they move, how they spawn, and how they are animated when 
 //                  certain events occur. Switch statements are used to 
 //                  differentiate between the different types of enemies.
+//                  All interactions are coded in this script.
 ******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
@@ -18,73 +19,59 @@ public class EnemyBehaviour : MonoBehaviour
     Rigidbody2D rb;
     Collider2D col;
     GameController gc;
+    AudioController sound;
 
-    //public GameObject enemy;
-    //public Vector3[] spawnPoints = new Vector3[5] {new Vector3(10, 2, 0), 
-    //    new Vector3(10, 0.75f, 0), new Vector3(10, -0.5f, 0), 
-    //    new Vector3(10, -1.75f, 0), new Vector3(10, -3, 0)};
-    //public int sRate;
-
-    public int eType;
+    public int eType; // used in switches. Set in inspector
     public float eHP;
     public float eSpeed;
-    private Vector2 eMove;
-    private bool eActive = true;
+    private Vector2 eMove; // movement controls for enemies
+    private bool eActive = true; // bool to check if they're moving/able to move
 
     // Start is called before the first frame update
     void Start()
     { 
-
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         gc = FindObjectOfType<GameController>();
+        sound = FindObjectOfType<AudioController>();
     }
-
-    //IEnumerator SpawnEnemy()
-    //{
-    //    while (true)
-    //    {
-    //        Instantiate(enemy, spawnPoints[Random.Range(0, 4)], 
-    //            Quaternion.identity);
-    //        yield return new WaitForSeconds(sRate);
-    //    }
-    //}
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (eActive)
+        if (eActive) // if they are moving / are able to move...
         {
-            eMove = Vector2.left * eSpeed;
+            eMove = Vector2.left * eSpeed; // continue moving left
         }
-        else
+        else // if they just got hit or died...
         {
-            eMove = Vector2.zero;
+            eMove = Vector2.zero; // stop moving
         }
-        rb.velocity = eMove;
+        rb.velocity = eMove; // set vectors equal to velocity of rigidbody
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("bullet"))
+        if (collision.gameObject.CompareTag("bullet")) // if smacked by bullet
         {
-            eHP--;
-            if (eHP == 0)
+            eHP--; // lose a Hit Point
+            if (eHP == 0) // if HP is zero...
             {
-                eActive = false;
-                col.enabled = false;
-                switch (eType)
+                eActive = false; // stop moving
+                col.enabled = false; // disable collider (animation goes crazy and collider is on the circle bit)
+                sound.Play("EnemyDeath"); // play death sound
+                switch (eType) // find what type of enemy it is.
                 {
-                    case 0:
+                    case 0: // 8th note
                         gc.pScore += 100;
                         anim.SetTrigger("8thDied");
                         break;
-                    case 1:
+                    case 1: // Quarter Note
                         gc.pScore += 300;
                         anim.SetTrigger("QuarterDied");
                         break;
-                    case 2:
+                    case 2: // Half Note
                         gc.pScore += 500;
                         anim.SetTrigger("HalfDied");
                         break;
@@ -92,18 +79,16 @@ public class EnemyBehaviour : MonoBehaviour
                         break;
                 }
             }
-            else if (eHP > 0)
+            else if (eHP > 0) // if HP is not zero...
             {
-                eActive = false;
-                switch (eType)
+                eActive = false; // stop moving still 
+                sound.Play("EnemyHit"); // Play hit sound
+                switch (eType) // find enemy type
                 {
-                    case 0:
-                        anim.SetBool("8thHurt", true);
-                        break;
-                    case 1:
+                    case 1: // Quarter
                         anim.SetBool("QuarterHurt", true);
                         break;
-                    case 2:
+                    case 2: // Half
                         anim.SetBool("HalfHurt", true);
                         break;
                     default:
@@ -111,26 +96,29 @@ public class EnemyBehaviour : MonoBehaviour
                 }
             }
         }
-        if (collision.gameObject.CompareTag("player"))
+        if (collision.gameObject.CompareTag("player")) // If you touch a player...
         {
-            gc.pLives--;
-            EnemyDeath();
+            gc.pLives--; // player loses a life 
+            sound.Play("LifeLost"); // play life lost sound
+            EnemyDeath(); // go kablooey (just destroy object, no anim, doesn't really fit)
         }
         if (collision.gameObject.CompareTag("border"))
         {
-            gc.pLives--;
-            EnemyDeath();
+            gc.pLives--; // player loses a life
+            sound.Play("LifeLost"); // play life lost sound
+            EnemyDeath(); // exploooooode (just destroy object, no anim, doesn't really fit)
         }
     }
 
+    /// <summary>
+    /// Called at the end of the hit animation on enemies with >1 HP. 
+    /// Reenebles them to move
+    /// </summary>
     public void MoveEnemy()
     {
-        eActive = true;
+        eActive = true; 
         switch (eType)
         {
-            case 0:
-                anim.SetBool("8thHurt", false);
-                break;
             case 1:
                 anim.SetBool("QuarterHurt", false);
                 break;
@@ -142,6 +130,10 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// called on player and end of screen interactions, but also at the end of
+    /// the death animation.
+    /// </summary>
     public void EnemyDeath()
     {
         Destroy(gameObject);

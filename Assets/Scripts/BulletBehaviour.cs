@@ -1,10 +1,10 @@
 /******************************************************************************  
-//  File Name:      BulletBehaviour     
+//  File Name:      BulletBehaviour.cs     
 //  Author:         Caden Sheahan
 //  Creation Date:  September 4th, 2022
 //      
 //  Description:    This script controls the treble clef bullets operate. Their
-                    movement and the events where they are destroyed.
+//                  movement and the events where they are destroyed.
 ******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
@@ -17,8 +17,8 @@ public class BulletBehaviour : MonoBehaviour
     Collider2D col;
 
     public float bSpeed;
-    private Vector2 bMove;
-    private bool bActive = true;
+    private Vector2 bMove; // movement vector for bullet
+    private bool bActive = true; // checks if bullets are moving / are able to
 
     void Start()
     {
@@ -29,13 +29,13 @@ public class BulletBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.x > 11)
+        if (transform.position.x > 11) // if bullets go off screen
         {
-            BulletDestroy();
+            BulletDestroy(); // *poof*
         }
     }
     // Update is called once per frame
-    void FixedUpdate()
+    void FixedUpdate() // Same movement system as enemies
     {
         if (bActive)
         {
@@ -50,14 +50,17 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("enemy"))
+        if (collision.gameObject.CompareTag("enemy")) // If a bullet hits an enemy...
         {
-            bActive = false;
-            col.enabled = false;
-            anim.SetTrigger("BulletHit");
+            bActive = false; // stop moving
+            col.enabled = false; // disable collider
+            anim.SetTrigger("BulletHit"); // Start bullet hit animation
         }
     }
 
+    /// <summary>
+    /// Referenced at the end of the hit animation to get rid of the bullets
+    /// </summary>
     public void BulletDestroy()
     {
         Destroy(gameObject);
